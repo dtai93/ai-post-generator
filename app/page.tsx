@@ -17,6 +17,7 @@ export default function Home() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const creatorAddress = '0x8f37fdD3037b29195975d9e2F7bbb36ca51887dc';
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const creatorUsername = 'dtai93';
 
   const feeAmount = '0.0001';
@@ -56,8 +57,8 @@ export default function Home() {
             const title = data.title;
             const templates = [
               `${title}\n\nThis hits different in bull market 🚀\nLFG degen! #Crypto #Memecoin`,
-              `Real degen moment 😂\n"${title}"\nWho's still HODLing? 🦍💎\n#BaseChain`,
-              `POV: You're waiting for the pump\n${title}\nBut you're not selling 🌙🔥`,
+              `Real degen moment 😂\n"${title}"\nWho&apos;s still HODLing? 🦍💎\n#BaseChain`,
+              `POV: You&apos;re waiting for the pump\n${title}\nBut you&apos;re not selling 🌙🔥`,
               `Daily meme dose for crypto bros 📩\n${title}\nTag your squad! 👥`,
               `When Trump talks crypto again:\n${title}\nMarket loading... ⏳ #Bitcoin`,
               `This meme is pure alpha 🚀\n${title}\nBase season never ends! #Base`,
@@ -70,13 +71,13 @@ export default function Home() {
             setLoading(false);
             return;
           }
-        } catch (e) {
+        } catch {
           continue;
         }
       }
 
       throw new Error('No hot crypto meme found today 😭');
-    } catch (err) {
+    } catch {
       setError('Failed to load meme after multiple attempts, try hunting a new one 🚀');
     } finally {
       if (loading) setLoading(false);
@@ -114,7 +115,7 @@ export default function Home() {
         crossOrigin="anonymous"
       />
 
-      {/* Custom style ép nền đen chữ trắng */}
+
       <style jsx global>{`
         body, html, .card, .alert, .btn {
           background-color: #121212 !important;
@@ -150,7 +151,7 @@ export default function Home() {
           {loading && (
             <div className="text-center my-5">
               <div className="spinner-border text-warning" role="status"></div>
-              <p className="mt-3 fs-4 text-white">Hunting for today's fire crypto meme...</p>
+              <p className="mt-3 fs-4 text-white">Hunting for today&apos;s fire HOT News...</p>
             </div>
           )}
 
