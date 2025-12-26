@@ -25,8 +25,17 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      // Thêm để fix ảnh meme từ meme-api.com (thực tế ảnh từ reddit)
+      {
+        protocol: "https",
+        hostname: "**",  // Cho phép tất cả domain remote (an toàn vì meme từ reddit, và project mini app)
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
+  // Silence Turbopack warning nếu Vercel còn kêu
+  turbopack: {},
 };
 
 export default nextConfig;
