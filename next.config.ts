@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
+      // Reddit domains (giữ nguyên của bạn)
       {
         protocol: "https",
         hostname: "i.redd.it",
@@ -25,8 +26,40 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      // Thêm các domain phổ biến mà meme-api hay dùng
+      {
+        protocol: "https",
+        hostname: "i.imgflip.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "imgflip.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "i.imgur.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "imgur.com",
+        port: "",
+        pathname: "/**",
+      },
+      // Fix triệt để: cho phép tất cả domain HTTPS (an toàn cho mini app này vì chỉ dùng Image component)
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
   },
+  // Silence Turbopack warning nếu có
+  turbopack: {},
 };
 
 export default nextConfig;
