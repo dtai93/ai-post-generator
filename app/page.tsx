@@ -119,7 +119,6 @@ export default function Home() {
         } catch {}
       }
 
-      // Nếu không có URL hợp lệ hoặc là placeholder → retry
       if (!selectedUrl || !selectedUrl.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
         return fetchRandomMeme(retryCount + 1);
       }
@@ -165,6 +164,11 @@ export default function Home() {
     alert(`Success! 🎉\n\nNow copy your favorite caption + attach the meme image and cast it!\nTag @dtai93 so I can recast for extra virality ❤️`);
   };
 
+  const handleTransactionError = (err: any) => {
+    const msg = err?.message || err?.shortMessage || err?.toString() || 'Unknown transaction error';
+    setError(`Transaction failed: ${msg}. Please check your wallet balance on Base mainnet and try again.`);
+  };
+
   return (
     <>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossOrigin="anonymous" />
@@ -192,7 +196,7 @@ export default function Home() {
             </div>
           )}
 
-          {error && <div className="alert alert-warning text-dark text-center">{error}</div>}
+          {error && <div className="alert alert-danger text-center">{error}</div>}
 
           {meme && !loading && (
             <div className="row justify-content-center">
@@ -236,8 +240,21 @@ export default function Home() {
                 </div>
 
                 <div className="text-center">
-                  <Transaction chainId={8453} calls={[{ to: creatorAddress, value: parseEther(feeAmount) }]} onSuccess={handlePostSuccess}>
-                    <TransactionButton text="Post Now 🚀" className="btn btn-success btn-lg w-100 fw-bold shadow-lg py-4 fs-4 text-white" />
+                  <Transaction
+                    chainId={8453}
+                    calls={[
+                      {
+                        to: creatorAddress,
+                        value: parseEther(feeAmount),
+                      },
+                    ]}
+                    onSuccess={handlePostSuccess}
+                    onError={handleTransactionError} // Bắt và hiển thị lỗi chi tiết
+                  >
+                    <TransactionButton
+                      text="Post Now 🚀"
+                      className="btn btn-success btn-lg w-100 fw-bold shadow-lg py-4 fs-4 text-white"
+                    />
                   </Transaction>
                 </div>
               </div>
