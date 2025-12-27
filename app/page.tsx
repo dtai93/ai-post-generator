@@ -12,7 +12,7 @@ export default function Home() {
   
   const { composeCast } = useComposeCast();
   
-  // Sửa đúng cách: useClose trả về trực tiếp function close
+  // useClose trả về trực tiếp function close
   const close = useClose();
 
   const [meme, setMeme] = useState<{ title: string; url: string; source: string } | null>(null);
@@ -89,7 +89,9 @@ export default function Home() {
       } else if (randomSource === 'reddit') {
         const subreddits = ['memes', 'dankmemes', 'wholesomememes', 'me_irl'];
         const subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
-        const searchUrl = keyword ? `https://www.reddit.com/r/${subreddit}/search.json?q=${keyword}&restrict_sr=on&sort=hot&limit=50` : `https://www.reddit.com/r/${subreddit}/hot.json?limit=50`;
+        const searchUrl = keyword 
+          ? `https://www.reddit.com/r/${subreddit}/search.json?q=${keyword}&restrict_sr=on&sort=hot&limit=50`
+          : `https://www.reddit.com/r/${subreddit}/hot.json?limit=50`;
         const res = await axios.get(searchUrl);
         const validPosts = res.data.data.children
           .filter((p: any) => p.data.post_hint === 'image' && p.data.url.match(/\.(jpg|jpeg|png|gif)$/i))
@@ -165,7 +167,7 @@ export default function Home() {
     setSelectedCaption(caption);
   };
 
-
+  
   const handlePostSuccess = () => {
     if (!meme || !selectedCaption) return;
 
@@ -174,7 +176,7 @@ export default function Home() {
       embeds: [meme.url],
     });
 
-    close(); // Đóng/thu nhỏ Mini App sau khi post thành công
+    close(); // Tự động thu nhỏ Mini App sau khi post thành công
   };
 
   const handleTransactionError = (err: any) => {
@@ -184,7 +186,12 @@ export default function Home() {
 
   return (
     <>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossOrigin="anonymous" />
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+        crossOrigin="anonymous"
+      />
 
       <style jsx global>{`
         body, html, .card, .alert, .btn { background-color: #121212 !important; color: white !important; }
