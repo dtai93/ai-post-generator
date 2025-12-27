@@ -25,8 +25,8 @@ export default function Home() {
   const [usedMemeUrls, setUsedMemeUrls] = useState<Set<string>>(new Set());
   const [imgflipTemplates, setImgflipTemplates] = useState<{ id: string; name: string; url: string }[]>([]);
 
-  const creatorAddress = '0x8f37fdD3037b29195975d9e2F7bbb36ca51887dc';
-  const feeAmount = '0.00007';
+  const creatorAddress = '0x3D31b41cFa7B3583f24BAA46340E99413149714E';
+  const feeAmount = '0.00005';
 
   const sources = ['imgflip', 'reddit', 'memegen', 'd3vd'] as const;
   type SourceType = typeof sources[number];
@@ -167,7 +167,7 @@ export default function Home() {
     setSelectedCaption(caption);
   };
 
-  
+
   const handlePostSuccess = () => {
     if (!meme || !selectedCaption) return;
 
@@ -237,9 +237,9 @@ export default function Home() {
                 </button>
 
                 <div className="text-center mb-4">
-                  <p className="fw-bold mb-3 text-white">Follow @dtai93 for daily memes + degen captions 🦍</p>
-                  <a href="https://warpcast.com/dtai93" target="_blank" rel="noopener noreferrer" className="btn btn-warning btn-lg w-100 fw-bold shadow text-dark">
-                    Follow @dtai93 now! 🔔
+                  <p className="fw-bold mb-3 text-white">Follow me for daily memes + degen captions 🦍</p>
+                  <a href="https://base.app/profile/0x607aC0E59234EC5cfcb3Ccf337Cf0c59f225D8ed" target="_blank" rel="noopener noreferrer" className="btn btn-warning btn-lg w-100 fw-bold shadow text-dark">
+                    Follow me now! 🔔
                   </a>
                 </div>
 
