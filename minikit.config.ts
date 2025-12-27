@@ -19,9 +19,9 @@ export const minikitConfig = {
   },
   miniapp: {
     version: "1",
-    name: "meme-tip",
-    subtitle: "",
-    description: "",
+    name: "AI POST GENERATOR", // Tên Mini App mới
+    subtitle: "Generate trending crypto memes with AI 🚀",
+    description: "AI-powered post generator: Hunt fresh memes from multiple sources, get degen captions, and post instantly on Base with a small tip 🔥",
     screenshotUrls: [],
     iconUrl: `${ROOT_URL}/icon.png`,
     splashImageUrl: `${ROOT_URL}/splash.png`,
@@ -29,11 +29,11 @@ export const minikitConfig = {
     homeUrl: ROOT_URL,
     webhookUrl: `${ROOT_URL}/api/webhook`,
     primaryCategory: "utility",
-    tags: ["example"],
-    heroImageUrl: `${ROOT_URL}/hero.png`,
-    tagline: "",
-    ogTitle: "",
-    ogDescription: "",
-    ogImageUrl: `${ROOT_URL}/hero.png`,
+    tags: ["meme", "ai", "crypto", "degen", "base"],
+    heroImageUrl: "https://i.ibb.co/7JWBHPf0/image.jpg", // Ảnh bìa đẹp: Bitcoin rocket to moon bull market (funny degen vibe)
+    tagline: "Post trending memes instantly 🚀",
+    ogTitle: "AI POST GENERATOR on Base",
+    ogDescription: "Generate and post AI-suggested crypto memes with one tap 🔥",
+    ogImageUrl: "https://i.ibb.co/7JWBHPf0/image.jpg", // OG image giống hero để hiển thị đẹp trên cast
   },
 } as const;
