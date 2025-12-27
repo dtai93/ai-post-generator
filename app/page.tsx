@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { useMiniKit } from '@coinbase/onchainkit/minikit';
+import { useMiniKit, useComposeCast } from '@coinbase/onchainkit/minikit';
 import axios from 'axios';
 import Image from 'next/image';
 import { Transaction, TransactionButton } from '@coinbase/onchainkit/transaction';
@@ -9,19 +9,20 @@ import { parseEther } from 'viem';
 
 export default function Home() {
   const { setFrameReady, isFrameReady } = useMiniKit();
+  const { composeCast } = useComposeCast();
 
   const [meme, setMeme] = useState<{ title: string; url: string; source: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [captions, setCaptions] = useState<string[]>([]);
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [selectedCaption, setSelectedCaption] = useState<string | null>(null); // Caption user chọn
 
   const [trendingKeywords, setTrendingKeywords] = useState<string[]>([]);
   const [usedMemeUrls, setUsedMemeUrls] = useState<Set<string>>(new Set());
   const [imgflipTemplates, setImgflipTemplates] = useState<{ id: string; name: string; url: string }[]>([]);
 
   const creatorAddress = '0x8f37fdD3037b29195975d9e2F7bbb36ca51887dc';
-  const feeAmount = '0.0001';
+  const feeAmount = '0.00001';
 
   const sources = ['imgflip', 'reddit', 'memegen', 'd3vd'] as const;
   type SourceType = typeof sources[number];
@@ -43,7 +44,7 @@ export default function Home() {
     fetchTrending();
   }, []);
 
-  // Cache Imgflip templates một lần
+  // Cache Imgflip templates
   useEffect(() => {
     const fetchImgflip = async () => {
       try {
@@ -139,6 +140,7 @@ export default function Home() {
 
       const shuffled = templates.sort(() => 0.5 - Math.random());
       setCaptions(shuffled.slice(0, 5));
+      setSelectedCaption(null); // Reset selection khi load meme mới
 
       setLoading(false);
     } catch (err) {
@@ -154,19 +156,24 @@ export default function Home() {
     if (trendingKeywords.length > 0 && !meme) fetchRandomMeme();
   }, [trendingKeywords]);
 
-  const handleCopyCaption = (caption: string, index: number) => {
-    navigator.clipboard.writeText(caption);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  // User chọn caption
+  const handleSelectCaption = (caption: string) => {
+    setSelectedCaption(caption);
   };
 
+  // Thanh toán thành công → mở composer với caption đã chọn + ảnh meme
   const handlePostSuccess = () => {
-    alert(`Success! 🎉\n\nNow copy your favorite caption + attach the meme image and cast it!\nTag @dtai93 so I can recast for extra virality ❤️`);
+    if (!meme || !selectedCaption) return;
+
+    composeCast({
+      text: selectedCaption,
+      embeds: [meme.url],
+    });
   };
 
   const handleTransactionError = (err: any) => {
-    const msg = err?.message || err?.shortMessage || err?.toString() || 'Unknown transaction error';
-    setError(`Transaction failed: ${msg}. Please check your wallet balance on Base mainnet and try again.`);
+    const msg = err?.message || err?.shortMessage || 'Unknown error';
+    setError(`Transaction failed: ${msg}. Please check your wallet on Base mainnet.`);
   };
 
   return (
@@ -226,16 +233,20 @@ export default function Home() {
                 <div className="card bg-dark border-0 shadow-lg mb-4">
                   <div className="card-body">
                     <h3 className="card-title text-center fw-bold mb-4 text-white">
-                      AI Suggested Captions – Copy & Cast 🚀
+                      AI Suggested Captions – Select One to Post 🚀
                     </h3>
                     {captions.map((cap, i) => (
-                      <div key={i} className="bg-secondary bg-opacity-30 rounded-3 p-3 mb-3">
+                      <div key={i} className={`bg-secondary bg-opacity-30 rounded-3 p-3 mb-3 ${selectedCaption === cap ? 'border border-success' : ''}`}>
                         <p className="mb-3 text-white">{cap}</p>
-                        <button onClick={() => handleCopyCaption(cap, i)} className="btn btn-primary btn-sm">
-                          {copiedIndex === i ? 'Copied! ✅' : 'Copy Caption'}
+                        <button
+                          onClick={() => handleSelectCaption(cap)}
+                          className={`btn btn-${selectedCaption === cap ? 'success' : 'primary'} btn-sm`}
+                        >
+                          {selectedCaption === cap ? 'Selected ✅' : 'Select Caption'}
                         </button>
                       </div>
                     ))}
+                    {!selectedCaption && <p className="text-warning small text-center">Please select a caption to enable Post Now</p>}
                   </div>
                 </div>
 
@@ -249,10 +260,11 @@ export default function Home() {
                       },
                     ]}
                     onSuccess={handlePostSuccess}
-                    onError={handleTransactionError} // Bắt và hiển thị lỗi chi tiết
+                    onError={handleTransactionError}
                   >
                     <TransactionButton
-                      text="Post Now 🚀"
+                      text={selectedCaption ? "Post Now 🚀" : "Select Caption First"}
+                      disabled={!selectedCaption} // Mờ nút nếu chưa chọn caption
                       className="btn btn-success btn-lg w-100 fw-bold shadow-lg py-4 fs-4 text-white"
                     />
                   </Transaction>
