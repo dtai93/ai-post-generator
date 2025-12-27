@@ -1,20 +1,18 @@
 {
-  "miniapp": {
-    "version": "1",
-    "name": "AI Post Generator",
-    "iconUrl": "https://ai-post-generator-gamma.vercel.app/favicon.ico",
-    "homeUrl": "https://ai-post-generator-gamma.vercel.app/",
-    "imageUrl": "https://ai-post-generator-gamma.vercel.app/og-image.png",
-    "buttonTitle": "Launch AI Meme Generator",
-    "description": "Generate funny crypto memes with AI captions on Base",
-    "splashImageUrl": "https://ai-post-generator-gamma.vercel.app/splash.png",
-    "splashBackgroundColor": "#121212"
-  },
-  
-  "accountAssociation": {
-    "header": "eyJmaWQiOjI0NTI0MiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDFiMTZEZUViQzQxODVEOTE0OUU2OUQ3NGVDQUY3N2FhZjQyY0U3MjgifQ",
-    "payload": "eyJkb21haW4iOiJhaS1wb3N0LWdlbmVyYXRvci1nYW1tYS52ZXJjZWwuYXBwIn0",
-    "signature": "5GtRcc/pA8mlCq4obP1fGFh4vPkHILbb5ZW85Q7juy4R6vdXzd03zIBZYwouyOl24Ldk3nDNwpEgIUWDX/rLPxw="
-  }
-
+    "miniapp": {
+        "version": "1",
+        "name": "AI Post Generator",
+        "iconUrl": "https://ai-post-generator-gamma.vercel.app/favicon.ico",
+        "homeUrl": "https://ai-post-generator-gamma.vercel.app/",
+        "imageUrl": "https://ai-post-generator-gamma.vercel.app/og-image.png",
+        "buttonTitle": "Launch AI Meme Generator",
+        "description": "Generate funny crypto memes with AI captions on Base",
+        "splashImageUrl": "https://ai-post-generator-gamma.vercel.app/splash.png",
+        "splashBackgroundColor": "#121212"
+    },
+    "accountAssociation": {
+        "header": "eyJmaWQiOjI0NTI0MiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDFiMTZEZUViQzQxODVEOTE0OUU2OUQ3NGVDQUY3N2FhZjQyY0U3MjgifQ",
+        "payload": "eyJkb21haW4iOiJhaS1wb3N0LWdlbmVyYXRvci1nYW1tYS52ZXJjZWwuYXBwIn0",
+        "signature": "5GtRcc/pA8mlCq4obP1fGFh4vPkHILbb5ZW85Q7juy4R6vdXzd03zIBZYwouyOl24Ldk3nDNwpEgIUWDX/rLPxw="
+    }
 }
