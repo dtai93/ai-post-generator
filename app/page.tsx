@@ -175,6 +175,7 @@ export default function Home() {
                     height={800}
                     className="card-img-top"
                     priority
+                    unoptimized // ← Đã thêm dòng này để khắc phục lỗi hostname validation
                   />
                 </div>
 
